@@ -1,49 +1,54 @@
-import { createFileRoute, Link, useNavigate, notFound } from "@tanstack/react-router";
-import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Leaf, Truck, Wallet, Minus, Plus } from "lucide-react";
 import { useApp } from "../store";
 import { t } from "../data/i18n";
 import { products } from "../data/products";
 import { ProductCard } from "../components/ProductCard";
 
-export const Route = createFileRoute("/product/$slug")({
-  loader: ({ params }) => {
-    const p = products.find((x) => x.slug === params.slug);
-    if (!p) throw notFound();
-    return p;
-  },
-  head: ({ loaderData }) => ({
-    meta: loaderData ? [
-      { title: `${loaderData.name.fr} — Natura` },
-      { name: "description", content: loaderData.short.fr },
-      { property: "og:title", content: `${loaderData.name.fr} — Natura` },
-      { property: "og:description", content: loaderData.short.fr },
-      { property: "og:image", content: loaderData.image },
-    ] : [],
-  }),
-  notFoundComponent: () => (
-    <div className="container" style={{ padding: "5rem 0", textAlign: "center" }}>
-      <h1>Produit introuvable</h1>
-      <Link to="/catalog" className="btn btn-primary" style={{ marginTop: "2rem" }}>Voir la boutique</Link>
-    </div>
-  ),
-  component: ProductPage,
-});
-
-function ProductPage() {
-  const product = Route.useLoaderData();
+export default function ProductDetails() {
+  const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
   const { lang, addToCart } = useApp();
   const tt = t[lang];
-  const navigate = useNavigate();
+
+  const product = products.find((x) => x.slug === slug);
+
+  useEffect(() => {
+    if (product) {
+      document.title = `${product.name[lang]} — Natura`;
+    } else {
+      document.title = lang === "fr" ? "Produit introuvable — Natura" : "منتج غير موجود — ناتورا";
+    }
+  }, [product, lang]);
+
   const [imgIdx, setImgIdx] = useState(0);
   const [qty, setQty] = useState(1);
   const [tab, setTab] = useState<"desc" | "bene" | "ing" | "use">("desc");
+
+  // Reset indices when slug changes
+  useEffect(() => {
+    setImgIdx(0);
+    setQty(1);
+    setTab("desc");
+  }, [slug]);
+
+  if (!product) {
+    return (
+      <div className="container" style={{ padding: "5rem 0", textAlign: "center" }}>
+        <h1>{lang === "fr" ? "Produit introuvable" : "المنتج غير موجود"}</h1>
+        <Link to="/catalog" className="btn btn-primary" style={{ marginTop: "2rem" }}>
+          {lang === "fr" ? "Voir la boutique" : "اطلع على المتجر"}
+        </Link>
+      </div>
+    );
+  }
 
   const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
 
   const buyNow = () => {
     addToCart(product.id, qty);
-    navigate({ to: "/checkout" });
+    navigate("/checkout");
   };
 
   return (

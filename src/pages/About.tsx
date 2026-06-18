@@ -1,15 +1,16 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import { Leaf, Heart, MapPin } from "lucide-react";
 import { useApp } from "../store";
 
-export const Route = createFileRoute("/about")({
-  head: () => ({ meta: [{ title: "Notre Histoire — Natura" }, { name: "description", content: "Découvrez l'histoire de Natura, marque tunisienne de cosmétiques naturels." }] }),
-  component: About,
-});
-
-function About() {
+export default function About() {
   const { lang } = useApp();
   const isAr = lang === "ar";
+
+  useEffect(() => {
+    document.title = isAr ? "قصتنا — ناتورا" : "Notre Histoire — Natura";
+  }, [isAr]);
+
   return (
     <>
       <div className="page-hero">

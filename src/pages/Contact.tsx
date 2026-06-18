@@ -1,17 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
-import { useState } from "react";
 import { useApp } from "../store";
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({ meta: [{ title: "Contact — Natura" }] }),
-  component: Contact,
-});
-
-function Contact() {
+export default function Contact() {
   const { lang } = useApp();
   const isAr = lang === "ar";
   const [sent, setSent] = useState(false);
+
+  useEffect(() => {
+    document.title = isAr ? "اتصلي بنا — ناتورا" : "Contact — Natura";
+  }, [isAr]);
+
   return (
     <>
       <div className="page-hero">

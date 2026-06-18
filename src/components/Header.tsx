@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useApp } from "../store";
@@ -9,7 +9,9 @@ export function Header() {
   const { lang, setLang, cartCount } = useApp();
   const tt = t[lang];
   const [open, setOpen] = useState(false);
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  
+  const location = useLocation();
+  const pathname = location.pathname;
   const is = (p: string) => pathname === p;
 
   return (

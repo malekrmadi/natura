@@ -1,28 +1,21 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Leaf, MapPin, HeartHandshake, Truck, ArrowRight, Sparkles } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useApp } from "../store";
 import { t } from "../data/i18n";
 import { products } from "../data/products";
 import { ProductCard } from "../components/ProductCard";
 import heroImg from "@/assets/hero.jpg";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Natura — Cosmétiques Naturels de Tunisie" },
-      { name: "description", content: "Huile d'argan, shampoing bio, soins spa. Marque tunisienne 100% naturelle. Paiement à la livraison." },
-      { property: "og:title", content: "Natura — Beauté Naturelle de Tunisie" },
-      { property: "og:description", content: "Cosmétiques bio inspirés des trésors de Tunisie." },
-    ],
-  }),
-  component: Home,
-});
-
 const benefitIcons = [Leaf, MapPin, HeartHandshake, Truck];
 
-function Home() {
+export default function Home() {
   const { lang } = useApp();
+  
+  useEffect(() => {
+    document.title = lang === "fr" ? "Natura — Cosmétiques Naturels de Tunisie" : "Natura — طبيعي من تونس";
+  }, [lang]);
+
   const tt = t[lang];
   const featured = products.filter((p) => p.featured).slice(0, 4);
   const best = products.filter((p) => p.bestseller).slice(0, 4);

@@ -1,19 +1,18 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 import { Check } from "lucide-react";
-import { z } from "zod";
 import { useApp } from "../store";
 import { t } from "../data/i18n";
 
-export const Route = createFileRoute("/confirmation")({
-  validateSearch: z.object({ order: z.string().optional() }),
-  head: () => ({ meta: [{ title: "Commande Confirmée — Natura" }] }),
-  component: Confirmation,
-});
-
-function Confirmation() {
+export default function Confirmation() {
   const { lang } = useApp();
   const tt = t[lang];
-  const { order } = Route.useSearch();
+  const [searchParams] = useSearchParams();
+  const order = searchParams.get("order");
+
+  useEffect(() => {
+    document.title = lang === "fr" ? "Commande Confirmée — Natura" : "تأكيد الطلب — ناتورا";
+  }, [lang]);
 
   return (
     <div className="container">

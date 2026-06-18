@@ -1,20 +1,20 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Wallet, ArrowLeft } from "lucide-react";
 import { useApp } from "../store";
 import { t } from "../data/i18n";
 import { governorates } from "../data/products";
 
-export const Route = createFileRoute("/checkout")({
-  head: () => ({ meta: [{ title: "Commande — Natura" }] }),
-  component: Checkout,
-});
-
-function Checkout() {
+export default function Checkout() {
   const { lang, cartProducts, cartTotal, clearCart } = useApp();
   const tt = t[lang];
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    document.title = lang === "fr" ? "Commande — Natura" : "إتمام الطلب — ناتورا";
+  }, [lang]);
+
   const shipping = cartTotal >= 100 || cartTotal === 0 ? 0 : 8;
   const total = cartTotal + shipping;
 
@@ -33,7 +33,7 @@ function Checkout() {
     const orderNum = "NTR-" + Math.random().toString(36).substring(2, 8).toUpperCase();
     setTimeout(() => {
       clearCart();
-      navigate({ to: "/confirmation", search: { order: orderNum } });
+      navigate(`/confirmation?order=${orderNum}`);
     }, 600);
   };
 

@@ -1,16 +1,17 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import { Minus, Plus, X, ShoppingBag, Wallet } from "lucide-react";
 import { useApp } from "../store";
 import { t } from "../data/i18n";
 
-export const Route = createFileRoute("/cart")({
-  head: () => ({ meta: [{ title: "Mon Panier — Natura" }] }),
-  component: Cart,
-});
-
-function Cart() {
+export default function Cart() {
   const { lang, cartProducts, updateQty, removeFromCart, cartTotal } = useApp();
   const tt = t[lang];
+
+  useEffect(() => {
+    document.title = lang === "fr" ? "Mon Panier — Natura" : "سلة المشتريات — ناتورا";
+  }, [lang]);
+
   const shipping = cartTotal >= 100 || cartTotal === 0 ? 0 : 8;
   const total = cartTotal + shipping;
 

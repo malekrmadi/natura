@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { useApp } from "../store";
 import { t } from "../data/i18n";
 import { Logo } from "./Logo";

@@ -1,23 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Search } from "lucide-react";
 import { useApp } from "../store";
 import { t } from "../data/i18n";
 import { products, categories, type Category } from "../data/products";
 import { ProductCard } from "../components/ProductCard";
 
-export const Route = createFileRoute("/catalog")({
-  head: () => ({
-    meta: [
-      { title: "Boutique — Natura Tunisia" },
-      { name: "description", content: "Découvrez notre collection complète de cosmétiques naturels tunisiens." },
-    ],
-  }),
-  component: Catalog,
-});
-
-function Catalog() {
+export default function Catalog() {
   const { lang } = useApp();
+
+  useEffect(() => {
+    document.title = lang === "fr" ? "Boutique — Natura Tunisia" : "المتجر — ناتورا تونس";
+  }, [lang]);
+
   const tt = t[lang];
   const [cat, setCat] = useState<Category | "all">("all");
   const [q, setQ] = useState("");
