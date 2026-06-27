@@ -13,12 +13,12 @@ export default function Home() {
   const { lang } = useApp();
   
   useEffect(() => {
-    document.title = lang === "fr" ? "Natura — Cosmétiques Naturels de Tunisie" : "Natura — طبيعي من تونس";
+    document.title = lang === "fr" ? "Herbia — Soins Naturels de Tunisie" : "هيربيا — طبيعي من تونس";
   }, [lang]);
 
   const tt = t[lang];
-  const featured = products.filter((p) => p.featured).slice(0, 4);
-  const best = products.filter((p) => p.bestseller).slice(0, 4);
+  const featured = products.filter((p) => p.featured && !p.isPack).slice(0, 4);
+  const best = products.filter((p) => p.bestseller && !p.isPack).slice(0, 4);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
@@ -37,7 +37,7 @@ export default function Home() {
               </div>
             </div>
             <div className="hero-image fade-up delay-2">
-              <img src={heroImg} alt="Natura" width={1600} height={1100} />
+              <img src={heroImg} alt="Herbia" width={1600} height={1100} />
               <div className="hero-badge">
                 <Truck size={28} color="var(--green-dark)" />
                 <div><strong>{tt.hero.badge}</strong><span>{tt.hero.badgeSub}</span></div>

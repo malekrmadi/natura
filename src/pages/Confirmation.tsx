@@ -11,7 +11,7 @@ export default function Confirmation() {
   const order = searchParams.get("order");
 
   useEffect(() => {
-    document.title = lang === "fr" ? "Commande Confirmée — Natura" : "تأكيد الطلب — ناتورا";
+    document.title = lang === "fr" ? "Commande Confirmée — Herbia" : "تأكيد الطلب — هيربيا";
   }, [lang]);
 
   return (

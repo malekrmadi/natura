@@ -1,15 +1,11 @@
-import argan from "@/assets/p-argan.jpg";
-import shampoo from "@/assets/p-shampoo.jpg";
-import conditioner from "@/assets/p-conditioner.jpg";
-import castor from "@/assets/p-castor.jpg";
-import blackseed from "@/assets/p-blackseed.jpg";
-import soap from "@/assets/p-soap.jpg";
-import massage from "@/assets/p-massage.jpg";
-import mask from "@/assets/p-mask.jpg";
-import giftbox from "@/assets/p-giftbox.jpg";
-import bundle from "@/assets/p-bundle.jpg";
+import vaseline from "@/assets/vaseline.png";
+import kebrit from "@/assets/kebrit.png";
+import derma from "@/assets/derma.png";
+import brosse from "@/assets/brosse.png";
+import applicateur from "@/assets/applicateur.png";
+import kebritVaseline from "@/assets/kebrit + vaseline.png";
 
-export type Category = "hair" | "oils" | "spa";
+export type Category = "soin" | "outil" | "accessoire";
 
 export interface Product {
   id: string;
@@ -28,177 +24,414 @@ export interface Product {
   ingredients: { fr: string; ar: string };
   usage: { fr: string; ar: string };
   unit: { fr: string; ar: string };
+  isPack?: boolean;
+  sibling?: string; // slug of the other variant
 }
 
 export const products: Product[] = [
+  // ── PRODUIT 1 : VASELINE À L'HUILE DE NIGELLE ────────────────────────────
   {
     id: "1",
-    slug: "shampoing-bio-reparateur",
-    name: { fr: "Shampoing Bio Réparateur", ar: "شامبو عضوي مرمم" },
-    category: "hair",
-    price: 38,
-    image: shampoo,
-    gallery: [shampoo, mask, bundle],
-    tag: { fr: "Bestseller", ar: "الأكثر مبيعا" },
+    slug: "vaseline-nigelle",
+    name: {
+      fr: "Vaseline Naturelle à l'Huile de Nigelle – Herbia",
+      ar: "فازلين طبيعي بزيت الحبة السوداء – Herbia",
+    },
+    category: "soin",
+    price: 29.9,
+    oldPrice: 34.9,
+    image: vaseline,
+    gallery: [vaseline],
+    tag: { fr: "Naturel", ar: "طبيعي" },
     featured: true,
     bestseller: true,
     short: {
-      fr: "Restaure les cheveux abîmés avec un mélange d'huiles essentielles tunisiennes.",
-      ar: "يعيد للشعر التالف حيويته بمزيج من الزيوت العطرية التونسية.",
+      fr: "Le soin réparateur intense pour les peaux très sèches. Idéal pour adoucir les pieds, soigner les talons fendillés et nourrir les zones rugueuses.",
+      ar: "العناية المكثفة لإصلاح البشرة شديدة الجفاف. مثالي لتنعيم الأقدام، علاج تشققات الكعبين وتغذية المناطق الخشنة.",
     },
     benefits: {
-      fr: ["Répare en profondeur", "Sans sulfates ni parabens", "Brillance naturelle", "Convient à tous les types de cheveux"],
-      ar: ["إصلاح عميق", "خالٍ من السلفات والبارابين", "لمعان طبيعي", "مناسب لجميع أنواع الشعر"],
+      fr: ["Répare les peaux très sèches", "Adoucit les pieds et talons", "Nourrit les zones rugueuses", "Formule à base de nigelle"],
+      ar: ["يُصلح البشرة شديدة الجفاف", "ينعّم القدمين والكعبين", "يُغذّي المناطق الخشنة", "تركيبة بزيت الحبة السوداء"],
     },
-    ingredients: { fr: "Huile d'argan, huile d'olive, aloe vera, extrait de romarin, huiles essentielles.", ar: "زيت الأرغان، زيت الزيتون، الصبار، خلاصة إكليل الجبل، زيوت عطرية." },
-    usage: { fr: "Appliquer sur cheveux mouillés, masser et rincer. Utiliser 2 à 3 fois par semaine.", ar: "يوضع على الشعر المبلل، يدلك ثم يشطف. يستعمل 2 إلى 3 مرات أسبوعيا." },
-    unit: { fr: "250ml", ar: "250 مل" },
+    ingredients: {
+      fr: "Vaseline purifiée, huile de nigelle (Nigella sativa), extraits naturels apaisants.",
+      ar: "فازلين نقي، زيت الحبة السوداء (Nigella sativa)، مستخلصات طبيعية مهدئة.",
+    },
+    usage: {
+      fr: "Appliquer en couche généreuse sur les zones sèches avant le coucher. Masser jusqu'à absorption.",
+      ar: "ضعي طبقة سخية على المناطق الجافة قبل النوم. ادلكي حتى التشرب.",
+    },
+    unit: { fr: "1 pot", ar: "عبوة واحدة" },
+    isPack: false,
+    sibling: "vaseline-nigelle-pack",
   },
   {
     id: "2",
-    slug: "apres-shampoing-nourrissant",
-    name: { fr: "Après-Shampoing Nourrissant", ar: "بلسم مغذي" },
-    category: "hair",
-    price: 36,
-    image: conditioner,
-    gallery: [conditioner, shampoo, bundle],
-    featured: true,
-    short: { fr: "Nourrit et démêle pour des cheveux soyeux au quotidien.", ar: "يغذي ويفك التشابك للحصول على شعر حريري كل يوم." },
-    benefits: { fr: ["Démêlage facile", "Hydratation longue durée", "Sans silicone", "Parfum doux et naturel"], ar: ["فك التشابك بسهولة", "ترطيب طويل الأمد", "خالٍ من السيليكون", "رائحة طبيعية لطيفة"] },
-    ingredients: { fr: "Beurre de karité, huile de coco, protéines de soie, eau de fleur d'oranger.", ar: "زبدة الشيا، زيت جوز الهند، بروتينات الحرير، ماء زهر البرتقال." },
-    usage: { fr: "Appliquer après le shampoing, laisser poser 2 minutes puis rincer.", ar: "يوضع بعد الشامبو، يترك لمدة دقيقتين ثم يشطف." },
-    unit: { fr: "250ml", ar: "250 مل" },
+    slug: "vaseline-nigelle-pack",
+    name: {
+      fr: "Pack Duo Vaseline Réparatrice – Herbia",
+      ar: "العرض الثنائي: فازلين الحبة السوداء – Herbia",
+    },
+    category: "soin",
+    price: 49.9,
+    oldPrice: 59.8,
+    image: vaseline,
+    gallery: [vaseline],
+    tag: { fr: "Pack Duo", ar: "عرض ثنائي" },
+    featured: false,
+    bestseller: false,
+    short: {
+      fr: "Profitez de notre offre spéciale avec ce lot de 2 pots de vaseline à la nigelle pour une hydratation continue de toute la famille.",
+      ar: "استفيدوا من عرضنا الخاص مع طقم متكون من عبوتين من فازلين الحبة السوداء لترطيب مستمر لجميع أفراد العائلة.",
+    },
+    benefits: {
+      fr: ["2 pots au prix avantageux", "Hydratation pour toute la famille", "Économie sur l'achat groupé", "Formule réparatrice intense"],
+      ar: ["عبوتان بسعر مميز", "ترطيب لجميع أفراد العائلة", "اقتصاد على الشراء الجماعي", "تركيبة مرممة مكثفة"],
+    },
+    ingredients: {
+      fr: "Vaseline purifiée, huile de nigelle (Nigella sativa), extraits naturels apaisants.",
+      ar: "فازلين نقي، زيت الحبة السوداء، مستخلصات طبيعية مهدئة.",
+    },
+    usage: {
+      fr: "Appliquer sur les zones sèches. Idéal pour toute la famille.",
+      ar: "ضعي على المناطق الجافة. مثالي لجميع أفراد العائلة.",
+    },
+    unit: { fr: "2 pots", ar: "عبوتان" },
+    isPack: true,
+    sibling: "vaseline-nigelle",
   },
+
+  // ── PRODUIT 2 : CRÈME DE SOUFRE ──────────────────────────────────────────
   {
     id: "3",
-    slug: "duo-shampoing-apres-shampoing",
-    name: { fr: "Duo Shampoing + Après-Shampoing", ar: "باقة شامبو + بلسم" },
-    category: "hair",
-    price: 65,
-    oldPrice: 74,
-    image: bundle,
-    gallery: [bundle, shampoo, conditioner],
-    tag: { fr: "-15%", ar: "-15%" },
+    slug: "creme-soufre",
+    name: {
+      fr: "Crème de Soufre Authentique – Herbia",
+      ar: "دهان الكبريت المغربي الأصيل – Herbia",
+    },
+    category: "soin",
+    price: 34.9,
+    oldPrice: 39.9,
+    image: kebrit,
+    gallery: [kebrit],
+    tag: { fr: "Traitement", ar: "علاجي" },
+    featured: true,
     bestseller: true,
-    short: { fr: "Le duo essentiel pour une routine capillaire complète et économique.", ar: "الثنائي الأساسي لروتين شعر كامل واقتصادي." },
-    benefits: { fr: ["Économisez 15%", "Routine complète", "Résultats visibles dès 2 semaines"], ar: ["وفّر 15%", "روتين كامل", "نتائج مرئية خلال أسبوعين"] },
-    ingredients: { fr: "Voir fiches produits individuelles.", ar: "انظر بطاقات المنتج الفردية." },
-    usage: { fr: "Suivre le rituel : shampoing puis après-shampoing.", ar: "اتبع الطقس: الشامبو ثم البلسم." },
-    unit: { fr: "2 x 250ml", ar: "2 × 250 مل" },
+    short: {
+      fr: "Un traitement ciblé et efficace pour éliminer les mycoses des ongles, apaiser l'eczéma et calmer les irritations cutanées.",
+      ar: "علاج مستهدف وفعال للقضاء على فطريات الأظافر، تهدئة الأكزيما والتخفيف من حساسية وتيج الجلد.",
+    },
+    benefits: {
+      fr: ["Élimine les mycoses des ongles", "Apaise l'eczéma", "Calme les irritations cutanées", "Formule au soufre naturel"],
+      ar: ["يقضي على فطريات الأظافر", "يهدئ الأكزيما", "يخفف من تهيج الجلد", "تركيبة بالكبريت الطبيعي"],
+    },
+    ingredients: {
+      fr: "Soufre sublimé, base crème hydratante, huiles essentielles purifiantes.",
+      ar: "كبريت مصعّد، قاعدة كريم مرطبة، زيوت عطرية منقية.",
+    },
+    usage: {
+      fr: "Appliquer sur la zone concernée 1 à 2 fois par jour. Laisser agir et ne pas rincer.",
+      ar: "ضعي على المنطقة المعنية 1 إلى 2 مرة يوميا. اتركي تفعل مفعولها دون شطف.",
+    },
+    unit: { fr: "1 pot", ar: "عبوة واحدة" },
+    isPack: false,
+    sibling: "creme-soufre-pack",
   },
   {
     id: "4",
-    slug: "masque-reparateur-cheveux",
-    name: { fr: "Masque Réparateur Cheveux", ar: "قناع مرمم للشعر" },
-    category: "hair",
-    price: 45,
-    image: mask,
-    gallery: [mask, shampoo, conditioner],
-    short: { fr: "Soin intense hebdomadaire pour cheveux secs et abîmés.", ar: "علاج مكثف أسبوعي للشعر الجاف والتالف." },
-    benefits: { fr: ["Réparation intense", "Cheveux doux et brillants", "Action longue durée"], ar: ["إصلاح مكثف", "شعر ناعم ولامع", "تأثير طويل الأمد"] },
-    ingredients: { fr: "Avocat, argan, miel, beurre de karité.", ar: "الأفوكادو، الأرغان، العسل، زبدة الشيا." },
-    usage: { fr: "Appliquer sur cheveux humides, laisser poser 15-20 min, rincer.", ar: "يوضع على شعر رطب، يترك 15-20 دقيقة، يشطف." },
-    unit: { fr: "200ml", ar: "200 مل" },
+    slug: "creme-soufre-pack",
+    name: {
+      fr: "Pack Solution \"Pieds Sains & Réparés\" – Herbia",
+      ar: "باقة \"الأقدام السليمة والنقية\" – Herbia",
+    },
+    category: "soin",
+    price: 54.9,
+    oldPrice: 64.8,
+    image: kebrit,
+    gallery: [kebrit, vaseline],
+    tag: { fr: "Pack Solution", ar: "باقة حل" },
+    featured: false,
+    bestseller: false,
+    short: {
+      fr: "Le combo ultime : La Crème de Soufre pour traiter les mycoses + La Vaseline à la Nigelle pour hydrater et réparer les talons.",
+      ar: "الثنائي المثالي: دهان الكبريت لعلاج الفطريات + فازلين الحبة السوداء لترطيب مكثف وإصلاح تشققات الكعبين.",
+    },
+    benefits: {
+      fr: ["Traitement antifongique complet", "Réparation et hydratation des talons", "2 produits complémentaires", "Solution globale pieds"],
+      ar: ["علاج مضاد للفطريات شامل", "إصلاح وترطيب الكعبين", "منتجان متكاملان", "حل شامل للقدمين"],
+    },
+    ingredients: {
+      fr: "Crème de soufre + Vaseline à la nigelle. Voir fiches individuelles.",
+      ar: "دهان الكبريت + فازلين الحبة السوداء. انظر البطاقات الفردية.",
+    },
+    usage: {
+      fr: "Appliquer d'abord la crème de soufre sur les zones touchées, puis la vaseline pour hydrater.",
+      ar: "ضعي أولا دهان الكبريت على المناطق المصابة، ثم الفازلين للترطيب.",
+    },
+    unit: { fr: "Pack 2 produits", ar: "طقم منتجين" },
+    isPack: true,
+    sibling: "creme-soufre",
   },
+
+  // ── PRODUIT 2B : PACK KEBRIT + VASELINE (produit dédié avec sa propre image) ──
   {
-    id: "5",
-    slug: "huile-argan-pure",
-    name: { fr: "Huile d'Argan Pure", ar: "زيت الأرغان النقي" },
-    category: "oils",
-    price: 55,
-    image: argan,
-    gallery: [argan, mask, soap],
-    tag: { fr: "100% Pure", ar: "نقي 100%" },
+    id: "4b",
+    slug: "pack-kebrit-vaseline",
+    name: {
+      fr: "Pack Spécial Kebrit + Vaseline Nigelle – Herbia",
+      ar: "طقم الكبريت + فازلين الحبة السوداء – Herbia",
+    },
+    category: "soin",
+    price: 49.9,
+    oldPrice: 64.8,
+    image: kebritVaseline,
+    gallery: [kebritVaseline, kebrit, vaseline],
+    tag: { fr: "⭐ Offre Spéciale", ar: "⭐ عرض خاص" },
     featured: true,
     bestseller: true,
-    short: { fr: "Or liquide du Maghreb, première pression à froid, pour peau et cheveux.", ar: "ذهب المغرب السائل، عصر بارد أول، للبشرة والشعر." },
-    benefits: { fr: ["Anti-âge naturel", "Hydratation profonde", "Riche en vitamine E", "Pressée à froid"], ar: ["مضاد للشيخوخة طبيعي", "ترطيب عميق", "غني بفيتامين E", "معصور على البارد"] },
-    ingredients: { fr: "100% huile d'argan pure (Argania spinosa) — origine Tunisie.", ar: "100% زيت أرغان نقي (Argania spinosa) — منشأ تونس." },
-    usage: { fr: "Quelques gouttes sur peau ou cheveux, masser délicatement.", ar: "قطرات قليلة على البشرة أو الشعر، تدلك بلطف." },
-    unit: { fr: "50ml", ar: "50 مل" },
+    short: {
+      fr: "Notre duo best-seller : la Crème de Soufre Kebrit pour traiter les mycoses et irritations + la Vaseline Nigelle pour réparer et hydrater en profondeur.",
+      ar: "ثنائينا الأكثر مبيعاً: دهان الكبريت لعلاج الفطريات والتهيج + فازلين الحبة السوداء للإصلاح والترطيب العميق.",
+    },
+    benefits: {
+      fr: ["Traitement antifongique (Kebrit)", "Hydratation & réparation profonde (Vaseline)", "Combo idéal pieds, talons, ongles", "Économisez 14,900 DT vs achat séparé"],
+      ar: ["علاج الفطريات (الكبريت)", "ترطيب وإصلاح عميق (الفازلين)", "ثنائي مثالي للقدمين والكعبين والأظافر", "وفر 14,900 د.ت مقارنة بالشراء المنفصل"],
+    },
+    ingredients: {
+      fr: "Crème de soufre (Nigella sativa, soufre sublimé) + Vaseline purifiée à l'huile de nigelle.",
+      ar: "دهان الكبريت (حبة سوداء، كبريت مصعّد) + فازلين نقي بزيت الحبة السوداء.",
+    },
+    usage: {
+      fr: "Matin : Appliquer la crème de soufre sur les zones infectées. Soir : Appliquer la vaseline en massage nourrissant.",
+      ar: "صباحاً: ضعي دهان الكبريت على المناطق المصابة. مساءً: ضعي الفازلين بتدليك مغذٍّ.",
+    },
+    unit: { fr: "Pack 2 produits", ar: "طقم منتجين" },
+    isPack: false, // traité comme produit autonome dans le catalogue
+    sibling: undefined,
+  },
+
+  // ── PRODUIT 3 : DERMA ROLLER ──────────────────────────────────────────────
+  {
+    id: "5",
+    slug: "derma-roller",
+    name: {
+      fr: "Derma Roller Pro (540 Aiguilles) – Herbia",
+      ar: "جهاز ديرما رولر التيتانيوم – Herbia",
+    },
+    category: "outil",
+    price: 39.9,
+    oldPrice: 49.9,
+    image: derma,
+    gallery: [derma],
+    tag: { fr: "Pro", ar: "احترافي" },
+    featured: true,
+    bestseller: true,
+    short: {
+      fr: "Stimulez le collagène naturel de votre peau. Idéal pour réduire les cicatrices d'acné, lisser le teint et stimuler la pousse des cheveux ou de la barbe.",
+      ar: "حافزي الكولاجين الطبيعي لبشرتك. مثالي لتقليل آثار حب الشباب، تنعيم البشرة وتحفيز نمو شعر الرأس أو اللحية.",
+    },
+    benefits: {
+      fr: ["Stimule la production de collagène", "Réduit les cicatrices d'acné", "Lisse et unifie le teint", "Stimule la pousse cheveux & barbe"],
+      ar: ["يحفز إنتاج الكولاجين", "يقلل آثار حب الشباب", "ينعم ويوحد البشرة", "يحفز نمو الشعر واللحية"],
+    },
+    ingredients: {
+      fr: "540 micro-aiguilles en titane. Rouleau ergonomique.",
+      ar: "540 إبرة دقيقة من التيتانيوم. مقبض مريح.",
+    },
+    usage: {
+      fr: "Rouler délicatement sur peau propre et sèche. Appliquer votre sérum immédiatement après.",
+      ar: "دحرجي بلطف على بشرة نظيفة وجافة. ضعي السيروم مباشرة بعد الاستخدام.",
+    },
+    unit: { fr: "1 rouleau", ar: "جهاز واحد" },
+    isPack: false,
+    sibling: "derma-roller-pack",
   },
   {
     id: "6",
-    slug: "huile-de-ricin",
-    name: { fr: "Huile de Ricin", ar: "زيت الخروع" },
-    category: "oils",
-    price: 28,
-    image: castor,
-    gallery: [castor, argan, blackseed],
-    short: { fr: "Stimule la pousse des cheveux, cils et sourcils.", ar: "يحفز نمو الشعر والرموش والحواجب." },
-    benefits: { fr: ["Stimule la pousse", "Fortifie cheveux et ongles", "100% naturelle"], ar: ["يحفز النمو", "يقوي الشعر والأظافر", "طبيعي 100%"] },
-    ingredients: { fr: "100% huile de ricin pressée à froid.", ar: "100% زيت خروع معصور على البارد." },
-    usage: { fr: "Appliquer sur racines ou cils le soir.", ar: "يوضع على جذور الشعر أو الرموش مساءً." },
-    unit: { fr: "100ml", ar: "100 مل" },
+    slug: "derma-roller-pack",
+    name: {
+      fr: "Pack Booster Capillaire & Barbe – Herbia",
+      ar: "باقة تحفيز نمو الشعر واللحية – Herbia",
+    },
+    category: "outil",
+    price: 54.9,
+    oldPrice: 69.9,
+    image: derma,
+    gallery: [derma],
+    tag: { fr: "Pack Booster", ar: "باقة محفزة" },
+    featured: false,
+    bestseller: false,
+    short: {
+      fr: "Le Derma Roller 540 aiguilles conçu pour ouvrir les pores et maximiser à 100% l'absorption de vos huiles de pousse et sérums.",
+      ar: "جهاز الديرما رولر المصمم لفتح مسام الفروة ومضاعفة امتصاص زيوت وسيرومات إنبات الشعر بنسبة 100%.",
+    },
+    benefits: {
+      fr: ["Absorption maximisée des sérums", "Résultats x2 avec vos huiles", "Idéal croissance cheveux & barbe", "Technologie titane premium"],
+      ar: ["امتصاص أقصى للسيرومات", "نتائج مضاعفة مع زيوتك", "مثالي لنمو الشعر واللحية", "تقنية تيتانيوم متميزة"],
+    },
+    ingredients: {
+      fr: "540 micro-aiguilles en titane spécialement calibrées pour le cuir chevelu.",
+      ar: "540 إبرة دقيقة من التيتانيوم مصممة خصيصا لفروة الرأس.",
+    },
+    usage: {
+      fr: "Utiliser sur cuir chevelu sec, puis appliquer huile ou sérum de croissance.",
+      ar: "استخدمي على فروة رأس جافة، ثم ضعي زيت أو سيروم النمو.",
+    },
+    unit: { fr: "1 rouleau", ar: "جهاز واحد" },
+    isPack: true,
+    sibling: "derma-roller",
   },
+
+  // ── PRODUIT 4 : BROSSE MASSAGE CUIR CHEVELU ───────────────────────────────
   {
     id: "7",
-    slug: "huile-de-nigelle",
-    name: { fr: "Huile de Nigelle (Habba Sawda)", ar: "زيت الحبة السوداء" },
-    category: "oils",
-    price: 42,
-    image: blackseed,
-    gallery: [blackseed, argan, castor],
-    short: { fr: "Trésor ancestral, purifiante et fortifiante pour la peau.", ar: "كنز الأجداد، تطهر وتقوي البشرة." },
-    benefits: { fr: ["Purifie la peau", "Anti-imperfections", "Booste l'immunité"], ar: ["تنقي البشرة", "ضد العيوب", "تعزز المناعة"] },
-    ingredients: { fr: "100% huile de nigelle pure (Nigella sativa).", ar: "100% زيت حبة سوداء نقي." },
-    usage: { fr: "1 cuillère à café par jour ou en application locale.", ar: "ملعقة صغيرة يوميا أو موضعيا." },
-    unit: { fr: "100ml", ar: "100 مل" },
+    slug: "brosse-scalp",
+    name: {
+      fr: "Brosse Scalp Massage en Silicone – Herbia",
+      ar: "فرشاة السيليكون لتدليك فروة الرأس – Herbia",
+    },
+    category: "accessoire",
+    price: 26.9,
+    oldPrice: 34.9,
+    image: brosse,
+    gallery: [brosse],
+    tag: { fr: "Soin cheveux", ar: "عناية بالشعر" },
+    featured: true,
+    bestseller: false,
+    short: {
+      fr: "Améliorez votre routine de lavage. Cette brosse masse doucement le cuir chevelu, active la circulation et élimine efficacement les pellicules.",
+      ar: "طوري روتين غسيل شعرك. فرشاة مرنة لتدليك الفروة برفق، تنشيط الدورة الدموية والتخلص الفعال من القشرة.",
+    },
+    benefits: {
+      fr: ["Masse le cuir chevelu en douceur", "Active la circulation sanguine", "Élimine les pellicules", "Compatible avec tous shampoings"],
+      ar: ["تدلك الفروة بلطف", "تنشط الدورة الدموية", "تتخلص من القشرة بفعالية", "متوافقة مع كل الشامبو"],
+    },
+    ingredients: {
+      fr: "Silicone médical souple, poignée ergonomique résistante à l'eau.",
+      ar: "سيليكون طبي مرن، مقبض مريح مقاوم للماء.",
+    },
+    usage: {
+      fr: "Utiliser sur cheveux mouillés avec shampoing. Masser en mouvements circulaires.",
+      ar: "استخدمي على الشعر المبلل مع الشامبو. ادلكي بحركات دائرية.",
+    },
+    unit: { fr: "1 brosse", ar: "فرشاة واحدة" },
+    isPack: false,
+    sibling: "brosse-scalp-pack",
   },
   {
     id: "8",
-    slug: "huile-massage-relaxante",
-    name: { fr: "Huile de Massage Relaxante", ar: "زيت تدليك مرخي" },
-    category: "spa",
-    price: 48,
-    image: massage,
-    gallery: [massage, soap, giftbox],
-    featured: true,
-    short: { fr: "Évasion sensorielle aux roses et eucalyptus de Tunisie.", ar: "رحلة حسية بالورد والكينا التونسية." },
-    benefits: { fr: ["Détente musculaire", "Parfum apaisant", "Texture soyeuse"], ar: ["استرخاء العضلات", "رائحة مهدئة", "ملمس حريري"] },
-    ingredients: { fr: "Huile d'amande douce, jojoba, huiles essentielles de rose et eucalyptus.", ar: "زيت اللوز الحلو، الجوجوبا، زيوت الورد والكينا العطرية." },
-    usage: { fr: "Masser doucement le corps après la douche.", ar: "يدلك الجسم بلطف بعد الاستحمام." },
-    unit: { fr: "150ml", ar: "150 مل" },
+    slug: "brosse-scalp-pack",
+    name: {
+      fr: "Pack Soin Détox Cuir Chevelu – Herbia",
+      ar: "باقة العناية وتنقية فروة الرأس – Herbia",
+    },
+    category: "accessoire",
+    price: 39.9,
+    oldPrice: 49.9,
+    image: brosse,
+    gallery: [brosse],
+    tag: { fr: "Pack Détox", ar: "باقة تنقية" },
+    featured: false,
+    bestseller: false,
+    short: {
+      fr: "Une brosse de massage en silicone souple idéale pour nettoyer en profondeur et stimuler la racine des cheveux lors de vos soins.",
+      ar: "فرشاة تدليك من السيليكون الناعم، مثالية للتنظيف العميق وتحفيز جذور الشعر أثناء تطبيق العلاجات والزيوت.",
+    },
+    benefits: {
+      fr: ["Nettoyage profond du cuir chevelu", "Stimule les racines capillaires", "Optimise les soins et masques", "Détoxifie le cuir chevelu"],
+      ar: ["تنظيف عميق للفروة", "تحفز جذور الشعر", "تُحسّن امتصاص العلاجات والأقنعة", "تنقية فروة الرأس"],
+    },
+    ingredients: {
+      fr: "Silicone médical souple haute qualité.",
+      ar: "سيليكون طبي ناعم عالي الجودة.",
+    },
+    usage: {
+      fr: "Appliquer votre masque ou soin, puis masser avec la brosse pour optimiser la pénétration.",
+      ar: "ضعي قناعك أو علاجك، ثم ادلكي بالفرشاة لتحسين التغلغل.",
+    },
+    unit: { fr: "1 brosse", ar: "فرشاة واحدة" },
+    isPack: true,
+    sibling: "brosse-scalp",
   },
+
+  // ── PRODUIT 5 : APPLICATEUR D'HUILE ──────────────────────────────────────
   {
     id: "9",
-    slug: "savon-aloe-vera",
-    name: { fr: "Savon Naturel à l'Aloe Vera", ar: "صابون طبيعي بالصبار" },
-    category: "spa",
-    price: 18,
-    image: soap,
-    gallery: [soap, massage, giftbox],
-    short: { fr: "Saponification à froid, pour peaux sensibles.", ar: "تصبن بارد، للبشرة الحساسة." },
-    benefits: { fr: ["Apaise les peaux sensibles", "Hydrate", "Fait main en Tunisie"], ar: ["يهدئ البشرة الحساسة", "يرطب", "صناعة يدوية تونسية"] },
-    ingredients: { fr: "Huile d'olive, aloe vera, soude, huiles essentielles.", ar: "زيت الزيتون، الصبار، الصودا، زيوت عطرية." },
-    usage: { fr: "Utiliser quotidiennement sous la douche.", ar: "يستعمل يوميا تحت الدش." },
-    unit: { fr: "100g", ar: "100غ" },
+    slug: "applicateur-huile",
+    name: {
+      fr: "Flacon Applicateur d'Huile Précision – Herbia",
+      ar: "زجاجة توزيع وتطبيق الزيوت بدقة – Herbia",
+    },
+    category: "accessoire",
+    price: 22.9,
+    oldPrice: 29.9,
+    image: applicateur,
+    gallery: [applicateur],
+    tag: { fr: "Pratique", ar: "عملي" },
+    featured: true,
+    bestseller: false,
+    short: {
+      fr: "Appliquez vos bains d'huile et soins directement sur la racine des cheveux sans gaspillage et sans fessier grâce à son embout peigne intégré.",
+      ar: "طبقي حمامات الزيت وعلاجاتك مباشرة على فروة الرأس دون هدر أو فوضى بفضل الرأس المبتكر على شكل مشط.",
+    },
+    benefits: {
+      fr: ["Application précise sur les racines", "Zéro gaspillage d'huile", "Embout peigne intégré", "Idéal pour les bains d'huile"],
+      ar: ["تطبيق دقيق على الجذور", "صفر هدر للزيت", "رأس مشط مدمج", "مثالي لحمامات الزيت"],
+    },
+    ingredients: {
+      fr: "Flacon en plastique résistant, embout applicateur peigne multifonction.",
+      ar: "زجاجة بلاستيك متين، رأس تطبيق مشط متعدد الوظائف.",
+    },
+    usage: {
+      fr: "Remplir avec votre huile ou soin préféré. Appliquer directement sur le cuir chevelu en séparant les cheveux.",
+      ar: "امليء بزيتك أو علاجك المفضل. طبقي مباشرة على الفروة مع فصل الشعر.",
+    },
+    unit: { fr: "1 flacon", ar: "زجاجة واحدة" },
+    isPack: false,
+    sibling: "applicateur-huile-pack",
   },
   {
     id: "10",
-    slug: "coffret-spa-bien-etre",
-    name: { fr: "Coffret Spa Bien-Être", ar: "علبة هدايا سبا" },
-    category: "spa",
-    price: 145,
-    oldPrice: 175,
-    image: giftbox,
-    gallery: [giftbox, massage, soap],
-    tag: { fr: "Cadeau", ar: "هدية" },
-    bestseller: true,
-    featured: true,
-    short: { fr: "L'expérience spa complète à offrir ou s'offrir.", ar: "تجربة سبا كاملة للإهداء أو لنفسك." },
-    benefits: { fr: ["Économisez 30 DT", "Emballage cadeau premium", "5 produits stars"], ar: ["وفّر 30 د.ت", "تغليف هدايا فاخر", "5 منتجات نجمة"] },
-    ingredients: { fr: "Huile d'argan, huile de massage, savon aloe vera, masque cheveux, échantillon.", ar: "زيت الأرغان، زيت التدليك، صابون الصبار، قناع الشعر، عينة." },
-    usage: { fr: "Suivre les instructions de chaque produit.", ar: "اتبع تعليمات كل منتج." },
-    unit: { fr: "Coffret", ar: "علبة" },
+    slug: "applicateur-huile-pack",
+    name: {
+      fr: "Lot de 2 Flacons Applicateurs de Soins – Herbia",
+      ar: "طقم زجاجتين لتوزيع زيوت وصبغات الشعر – Herbia",
+    },
+    category: "accessoire",
+    price: 34.9,
+    oldPrice: 45.8,
+    image: applicateur,
+    gallery: [applicateur],
+    tag: { fr: "Lot ×2", ar: "طقم ×2" },
+    featured: false,
+    bestseller: false,
+    short: {
+      fr: "Pratique pour séparer vos mélanges : un flacon dédié à vos bains d'huiles et un second pour vos lotions ou teintures capillaires.",
+      ar: "عملي لتنظيم علاجاتك: زجاجة مخصصة لحمامات الزيت وأخرى لتطبيق اللوشنات أو صبغات الشعر بسهولة.",
+    },
+    benefits: {
+      fr: ["2 flacons pour 2 usages", "Organisez vos soins facilement", "Un pour huiles, un pour lotions", "Embout peigne pour chaque flacon"],
+      ar: ["زجاجتان لاستعمالين مختلفين", "نظمي عناياتك بسهولة", "إحداهما للزيوت والأخرى للصبغات", "رأس مشط لكل زجاجة"],
+    },
+    ingredients: {
+      fr: "2 flacons en plastique résistant avec embouts applicateurs peigne.",
+      ar: "زجاجتان من البلاستيك المتين مع رؤوس تطبيق مشط.",
+    },
+    usage: {
+      fr: "Dédier un flacon aux bains d'huile et l'autre aux lotions ou teintures.",
+      ar: "خصصي زجاجة لحمامات الزيت والأخرى للوشنات أو الصبغات.",
+    },
+    unit: { fr: "2 flacons", ar: "زجاجتان" },
+    isPack: true,
+    sibling: "applicateur-huile",
   },
 ];
 
 export const categories: { id: Category | "all"; fr: string; ar: string }[] = [
   { id: "all", fr: "Tout", ar: "الكل" },
-  { id: "hair", fr: "Soins Cheveux", ar: "العناية بالشعر" },
-  { id: "oils", fr: "Huiles Naturelles", ar: "الزيوت الطبيعية" },
-  { id: "spa", fr: "Spa & Corps", ar: "السبا والجسم" },
+  { id: "soin", fr: "Soins", ar: "العناية" },
+  { id: "outil", fr: "Outils", ar: "أدوات" },
+  { id: "accessoire", fr: "Accessoires", ar: "إكسسوارات" },
 ];
 
 export const governorates = [
@@ -207,3 +440,20 @@ export const governorates = [
   "Sfax", "Kairouan", "Kasserine", "Sidi Bouzid", "Gabès", "Médenine",
   "Tataouine", "Gafsa", "Tozeur", "Kébili",
 ];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ANCIENS PRODUITS — conservés pour usage futur
+// ─────────────────────────────────────────────────────────────────────────────
+/*
+import argan from "@/assets/p-argan.jpg";
+import shampoo from "@/assets/p-shampoo.jpg";
+import conditioner from "@/assets/p-conditioner.jpg";
+import castor from "@/assets/p-castor.jpg";
+import blackseed from "@/assets/p-blackseed.jpg";
+import soap from "@/assets/p-soap.jpg";
+import massage from "@/assets/p-massage.jpg";
+import mask from "@/assets/p-mask.jpg";
+import giftbox from "@/assets/p-giftbox.jpg";
+import bundle from "@/assets/p-bundle.jpg";
+// ... (anciens produits conservés ici)
+*/

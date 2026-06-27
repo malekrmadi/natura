@@ -8,7 +8,7 @@ export default function About() {
   const isAr = lang === "ar";
 
   useEffect(() => {
-    document.title = isAr ? "قصتنا — ناتورا" : "Notre Histoire — Natura";
+    document.title = isAr ? "قصتنا — هيربيا" : "Notre Histoire — Herbia";
   }, [isAr]);
 
   return (
@@ -16,15 +16,15 @@ export default function About() {
       <div className="page-hero">
         <div className="container">
           <h1>{isAr ? "قصتنا" : "Notre Histoire"}</h1>
-          <p>{isAr ? "ولدت ناتورا من شغف بكنوز الطبيعة التونسية." : "Natura est née d'une passion pour les trésors de la nature tunisienne."}</p>
+          <p>{isAr ? "ولدت هيربيا من شغف بكنوز الطبيعة التونسية." : "Herbia est née d'une passion pour les trésors de la nature tunisienne."}</p>
         </div>
       </div>
       <section className="section">
         <div className="container" style={{ maxWidth: 760 }}>
           <p style={{ fontSize: "1.15rem", lineHeight: 1.8, color: "var(--ink-soft)", marginBottom: "2rem" }}>
             {isAr
-              ? "في قلب الأرض التونسية، نمزج المعرفة العتيقة بالطلب الحديث للجمال الطبيعي. كل منتج من ناتورا ثمرة شغف، ومكونات منتقاة بعناية، وإنتاج محلي."
-              : "Au cœur de la terre tunisienne, nous mêlons savoir-faire ancestral et exigence moderne de beauté naturelle. Chaque produit Natura est le fruit d'une passion, d'ingrédients sélectionnés avec soin et d'une production locale."}
+              ? "في قلب الأرض التونسية، نمزج المعرفة العتيقة بالطلب الحديث للجمال الطبيعي. كل منتج من هيربيا ثمرة شغف، ومكونات منتقاة بعناية، وإنتاج محلي."
+              : "Au cœur de la terre tunisienne, nous mêlons savoir-faire ancestral et exigence moderne de beauté naturelle. Chaque produit Herbia est le fruit d'une passion, d'ingrédients sélectionnés avec soin et d'une production locale."}
           </p>
           <div className="benefits-grid" style={{ margin: "3rem 0" }}>
             <div className="benefit"><div className="benefit-icon"><Leaf size={28} /></div><h3>{isAr ? "طبيعي" : "Naturel"}</h3></div>

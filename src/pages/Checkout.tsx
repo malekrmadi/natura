@@ -12,7 +12,7 @@ export default function Checkout() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    document.title = lang === "fr" ? "Commande — Natura" : "إتمام الطلب — ناتورا";
+    document.title = lang === "fr" ? "Commande — Herbia" : "إتمام الطلب — هيربيا";
   }, [lang]);
 
   const shipping = cartTotal >= 100 || cartTotal === 0 ? 0 : 8;
@@ -30,7 +30,7 @@ export default function Checkout() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const orderNum = "NTR-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+    const orderNum = "HRB-" + Math.random().toString(36).substring(2, 8).toUpperCase();
     setTimeout(() => {
       clearCart();
       navigate(`/confirmation?order=${orderNum}`);

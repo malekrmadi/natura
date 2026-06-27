@@ -9,7 +9,7 @@ export default function Cart() {
   const tt = t[lang];
 
   useEffect(() => {
-    document.title = lang === "fr" ? "Mon Panier — Natura" : "سلة المشتريات — ناتورا";
+    document.title = lang === "fr" ? "Mon Panier — Herbia" : "سلة المشتريات — هيربيا";
   }, [lang]);
 
   const shipping = cartTotal >= 100 || cartTotal === 0 ? 0 : 8;

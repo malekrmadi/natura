@@ -23,7 +23,7 @@ export function Header() {
       <div className="header-inner">
         <Link to="/" className="logo" onClick={() => setOpen(false)}>
           <Logo />
-          <span>natura</span>
+          <span>herbia</span>
         </Link>
         <nav className="nav">
           <Link to="/" className={is("/") ? "active" : ""}>{tt.nav.home}</Link>

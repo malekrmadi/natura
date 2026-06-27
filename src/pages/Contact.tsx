@@ -8,7 +8,7 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
 
   useEffect(() => {
-    document.title = isAr ? "اتصلي بنا — ناتورا" : "Contact — Natura";
+    document.title = isAr ? "اتصلي بنا — هيربيا" : "Contact — Herbia";
   }, [isAr]);
 
   return (
@@ -46,7 +46,7 @@ export default function Contact() {
                 </div>
                 <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
                   <Mail size={20} color="var(--green-dark)" />
-                  <div><strong>hello@natura.tn</strong></div>
+                  <div><strong>hello@herbia.tn</strong></div>
                 </div>
                 <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
                   <MapPin size={20} color="var(--green-dark)" />

@@ -19,7 +19,7 @@ export const t = {
     featured: { eye: "Coups de cœur", title: "Nos produits phares", sub: "Sélectionnés pour vous, formulés avec passion." },
     bestsellers: { eye: "Best-sellers", title: "Les favoris de nos clientes", sub: "Approuvés par des milliers de Tunisiennes." },
     benefits: {
-      eye: "Pourquoi Natura",
+      eye: "Pourquoi Herbia",
       title: "Un engagement, une promesse",
       items: [
         { t: "100% Naturel", d: "Ingrédients bio sélectionnés à la source en Tunisie." },
@@ -45,7 +45,7 @@ export const t = {
         { q: "Puis-je retourner un produit ?", a: "Vous disposez de 7 jours pour échanger un produit non ouvert. Contactez-nous." },
       ],
     },
-    news: { title: "Rejoignez la famille Natura", sub: "Conseils beauté, nouveautés et offres exclusives directement dans votre boîte mail.", placeholder: "Votre email", cta: "S'inscrire" },
+    news: { title: "Rejoignez la famille Herbia", sub: "Conseils beauté, nouveautés et offres exclusives directement dans votre boîte mail.", placeholder: "Votre email", cta: "S'inscrire" },
     catalog: { title: "Notre Boutique", sub: "Découvrez toute la collection de soins naturels.", search: "Rechercher un produit...", filters: "Filtres", category: "Catégorie", price: "Prix" },
     pd: { add: "Ajouter au panier", buy: "Acheter maintenant", tabs: { desc: "Description", bene: "Bienfaits", ing: "Ingrédients", use: "Utilisation" }, trust: ["Naturel & Bio", "Livraison 24-48h", "Paiement à la livraison"], related: "Vous aimerez aussi" },
     cartPage: {
@@ -84,7 +84,7 @@ export const t = {
     featured: { eye: "المفضلة", title: "منتجاتنا الرائدة", sub: "اختيرت لك، صنعت بشغف." },
     bestsellers: { eye: "الأكثر مبيعا", title: "المفضلة لدى زبوناتنا", sub: "موثوقة من آلاف التونسيات." },
     benefits: {
-      eye: "لماذا ناتورا",
+      eye: "لماذا هيربيا",
       title: "التزام ووعد",
       items: [
         { t: "طبيعي 100%", d: "مكونات عضوية مختارة من المصدر في تونس." },
@@ -110,7 +110,7 @@ export const t = {
         { q: "هل يمكنني إرجاع منتج؟", a: "لديك 7 أيام لتبديل أي منتج غير مفتوح. اتصلي بنا." },
       ],
     },
-    news: { title: "انضمي إلى عائلة ناتورا", sub: "نصائح جمال، جديدنا وعروض حصرية مباشرة في بريدك.", placeholder: "بريدك الإلكتروني", cta: "اشتراك" },
+    news: { title: "انضمي إلى عائلة هيربيا", sub: "نصائح جمال، جديدنا وعروض حصرية مباشرة في بريدك.", placeholder: "بريدك الإلكتروني", cta: "اشتراك" },
     catalog: { title: "متجرنا", sub: "اكتشفي كامل مجموعة العناية الطبيعية.", search: "ابحثي عن منتج...", filters: "تصفية", category: "الصنف", price: "السعر" },
     pd: { add: "أضف للسلة", buy: "اشري توا", tabs: { desc: "الوصف", bene: "الفوائد", ing: "المكونات", use: "الاستعمال" }, trust: ["طبيعي وعضوي", "توصيل 24-48س", "الدفع عند الاستلام"], related: "قد يعجبك أيضا" },
     cartPage: {

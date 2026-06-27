@@ -12,7 +12,7 @@ export function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-col footer-brand">
-            <Link to="/" className="logo"><Logo /><span>natura</span></Link>
+            <Link to="/" className="logo"><Logo /><span>herbia</span></Link>
             <p>{tt.footer.tag}</p>
             <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}>
               <a href="#" aria-label="Instagram" className="icon-btn" style={{ background: "rgba(255,255,255,0.08)" }}><Instagram size={18} /></a>
@@ -45,7 +45,7 @@ export function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          © {new Date().getFullYear()} Natura Tunisia. {tt.footer.rights}
+          © {new Date().getFullYear()} Herbia Tunisia. {tt.footer.rights}
         </div>
       </div>
     </footer>

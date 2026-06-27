@@ -27,10 +27,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const l = (localStorage.getItem("natura.lang") as Lang) || "fr";
+    const l = (localStorage.getItem("herbia.lang") as Lang) || "fr";
     setLangState(l);
     try {
-      const c = JSON.parse(localStorage.getItem("natura.cart") || "[]");
+      const c = JSON.parse(localStorage.getItem("herbia.cart") || "[]");
       if (Array.isArray(c)) setCart(c);
     } catch {}
   }, []);
@@ -42,12 +42,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [lang]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") localStorage.setItem("natura.cart", JSON.stringify(cart));
+    if (typeof window !== "undefined") localStorage.setItem("herbia.cart", JSON.stringify(cart));
   }, [cart]);
 
   const setLang = (l: Lang) => {
     setLangState(l);
-    if (typeof window !== "undefined") localStorage.setItem("natura.lang", l);
+    if (typeof window !== "undefined") localStorage.setItem("herbia.lang", l);
   };
 
   const showToast = (msg: string) => {

@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Leaf, Truck, Wallet, Minus, Plus } from "lucide-react";
+import { Leaf, Truck, Wallet, Minus, Plus, Package, Star } from "lucide-react";
 import { useApp } from "../store";
 import { t } from "../data/i18n";
 import { products } from "../data/products";
@@ -16,9 +16,9 @@ export default function ProductDetails() {
 
   useEffect(() => {
     if (product) {
-      document.title = `${product.name[lang]} — Natura`;
+      document.title = `${product.name[lang]} — Herbia`;
     } else {
-      document.title = lang === "fr" ? "Produit introuvable — Natura" : "منتج غير موجود — ناتورا";
+      document.title = lang === "fr" ? "Produit introuvable — Herbia" : "منتج غير موجود — هيربيا";
     }
   }, [product, lang]);
 
@@ -44,12 +44,23 @@ export default function ProductDetails() {
     );
   }
 
-  const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
+  // Find the sibling variant if any
+  const siblingProduct = product.sibling ? products.find((p) => p.slug === product.sibling) : null;
+
+  // Determine which is standard and which is pack
+  const standardVariant = product.isPack ? siblingProduct : product;
+  const packVariant = product.isPack ? product : siblingProduct;
+
+  const related = products.filter(
+    (p) => p.category === product.category && p.id !== product.id && !p.isPack
+  ).slice(0, 4);
 
   const buyNow = () => {
     addToCart(product.id, qty);
     navigate("/checkout");
   };
+
+  const formatPrice = (price: number) => price.toFixed(3);
 
   return (
     <div className="container">
@@ -58,24 +69,113 @@ export default function ProductDetails() {
           <div className="pd-main-img">
             <img src={product.gallery[imgIdx]} alt={product.name[lang]} width={900} height={900} />
           </div>
-          <div className="pd-thumbs">
-            {product.gallery.map((g: string, i: number) => (
-              <button key={i} className={imgIdx === i ? "active" : ""} onClick={() => setImgIdx(i)}>
-                <img src={g} alt="" loading="lazy" />
-              </button>
-            ))}
-          </div>
+          {product.gallery.length > 1 && (
+            <div className="pd-thumbs">
+              {product.gallery.map((g: string, i: number) => (
+                <button key={i} className={imgIdx === i ? "active" : ""} onClick={() => setImgIdx(i)}>
+                  <img src={g} alt="" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         <div className="pd-info">
-          <span className="product-cat">{product.category === "hair" ? (lang === "fr" ? "Cheveux" : "الشعر") : product.category === "oils" ? (lang === "fr" ? "Huiles" : "زيوت") : (lang === "fr" ? "Spa" : "سبا")}</span>
+          <span className="product-cat">
+            {product.category === "soin"
+              ? lang === "fr" ? "Soin" : "عناية"
+              : product.category === "outil"
+              ? lang === "fr" ? "Outil" : "أداة"
+              : lang === "fr" ? "Accessoire" : "إكسسوار"}
+          </span>
           <h1>{product.name[lang]}</h1>
-          <div className="stars">★★★★★ <span style={{ color: "var(--ink-soft)", fontSize: "0.9rem", marginLeft: 8 }}>(127 {lang === "fr" ? "avis" : "تقييم"})</span></div>
-          <p style={{ color: "var(--ink-soft)", fontSize: "1.05rem", marginTop: "1rem" }}>{product.short[lang]}</p>
+          <div className="stars">
+            <Star size={14} fill="currentColor" /><Star size={14} fill="currentColor" />
+            <Star size={14} fill="currentColor" /><Star size={14} fill="currentColor" />
+            <Star size={14} fill="currentColor" />
+            <span style={{ color: "var(--ink-soft)", fontSize: "0.9rem", marginLeft: 8 }}>
+              (127 {lang === "fr" ? "avis" : "تقييم"})
+            </span>
+          </div>
+          <p style={{ color: "var(--ink-soft)", fontSize: "1.05rem", marginTop: "1rem" }}>
+            {product.short[lang]}
+          </p>
           <div className="pd-price">
-            <span className="now">{product.price} DT</span>
-            {product.oldPrice && <span style={{ textDecoration: "line-through", color: "var(--ink-soft)" }}>{product.oldPrice} DT</span>}
+            <span className="now">{formatPrice(product.price)} DT</span>
+            {product.oldPrice && (
+              <span style={{ textDecoration: "line-through", color: "var(--ink-soft)" }}>
+                {formatPrice(product.oldPrice)} DT
+              </span>
+            )}
             <span className="unit">/ {product.unit[lang]}</span>
           </div>
+
+          {/* VARIANT SELECTOR */}
+          {(standardVariant || packVariant) && (
+            <div style={{ margin: "1.5rem 0" }}>
+              <p style={{ fontWeight: 600, marginBottom: "0.75rem", fontSize: "0.9rem", color: "var(--ink-soft)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                {lang === "fr" ? "Choisir une option" : "اختر خيارًا"}
+              </p>
+              <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+                {standardVariant && (
+                  <button
+                    onClick={() => navigate(`/product/${standardVariant.slug}`)}
+                    style={{
+                      flex: "1 1 180px",
+                      padding: "0.9rem 1.1rem",
+                      border: `2px solid ${!product.isPack ? "var(--green-dark)" : "var(--line)"}`,
+                      borderRadius: "12px",
+                      background: !product.isPack ? "rgba(var(--green-dark-rgb, 44,95,66),0.07)" : "var(--white)",
+                      cursor: "pointer",
+                      textAlign: "left",
+                      transition: "all 0.2s ease",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                      <Leaf size={15} color="var(--green-dark)" />
+                      <span style={{ fontWeight: 700, fontSize: "0.85rem", color: "var(--ink)" }}>
+                        {lang === "fr" ? "Standard" : "قياسي"}
+                      </span>
+                    </div>
+                    <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "var(--green-dark)" }}>
+                      {formatPrice(standardVariant.price)} DT
+                    </div>
+                    <div style={{ fontSize: "0.75rem", color: "var(--ink-soft)", marginTop: "0.2rem" }}>
+                      {standardVariant.unit[lang]}
+                    </div>
+                  </button>
+                )}
+                {packVariant && (
+                  <button
+                    onClick={() => navigate(`/product/${packVariant.slug}`)}
+                    style={{
+                      flex: "1 1 180px",
+                      padding: "0.9rem 1.1rem",
+                      border: `2px solid ${product.isPack ? "var(--gold)" : "var(--line)"}`,
+                      borderRadius: "12px",
+                      background: product.isPack ? "rgba(212,175,55,0.08)" : "var(--white)",
+                      cursor: "pointer",
+                      textAlign: "left",
+                      transition: "all 0.2s ease",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                      <Package size={15} color="var(--gold)" />
+                      <span style={{ fontWeight: 700, fontSize: "0.85rem", color: "var(--ink)" }}>
+                        {lang === "fr" ? "Pack / Duo" : "باقة / ثنائي"}
+                      </span>
+                    </div>
+                    <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "var(--gold, #b8860b)" }}>
+                      {formatPrice(packVariant.price)} DT
+                    </div>
+                    <div style={{ fontSize: "0.75rem", color: "var(--ink-soft)", marginTop: "0.2rem" }}>
+                      {packVariant.unit[lang]}
+                    </div>
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="qty-row">
             <div className="qty">
               <button onClick={() => setQty(Math.max(1, qty - 1))}><Minus size={16} /></button>

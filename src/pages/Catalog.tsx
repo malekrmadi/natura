@@ -9,7 +9,7 @@ export default function Catalog() {
   const { lang } = useApp();
 
   useEffect(() => {
-    document.title = lang === "fr" ? "Boutique — Natura Tunisia" : "المتجر — ناتورا تونس";
+    document.title = lang === "fr" ? "Boutique — Herbia Tunisia" : "المتجر — هيربيا تونس";
   }, [lang]);
 
   const tt = t[lang];
@@ -18,6 +18,7 @@ export default function Catalog() {
 
   const filtered = useMemo(() => {
     return products.filter((p) => {
+      if (p.isPack) return false; // only show standard items in catalog
       if (cat !== "all" && p.category !== cat) return false;
       if (q && !p.name[lang].toLowerCase().includes(q.toLowerCase())) return false;
       return true;
